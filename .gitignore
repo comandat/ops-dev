@@ -13,6 +13,12 @@ build/
 out/
 .next/
 
+# Databases
+*.db
+*.db-journal
+*.sqlite
+
+
 # Prisma generated client (generated at build)
 generated/prisma/
 
