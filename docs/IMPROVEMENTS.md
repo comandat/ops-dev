@@ -458,7 +458,147 @@ Marketplace involved, sync job details, etc.
 
 ---
 
-### #3 - [Next Improvement - TBD]
+### #3 - Homepage Analytics & Conversion Tracking
+
+**Data**: 2026-04-01 16:45 UTC  
+**Status**: 🟢 Proposed (ready for Alex)  
+**Inițiat de**: Bogdan (Improvement Check #3)
+
+#### 🎯 Problema
+
+Homepage-ul este live, dar **nu avem vizibilitate** pe:
+- Câți vizitatori ajung pe homepage
+- Cât % dau click pe "Începe Gratuit" (CTR)
+- Cât % ajung până la /register și completează
+- Unde se pierd utilizatorii (drop-off points)
+- Care e conversion rate: visitor → registered → verified → active
+
+**Fără tracking**:
+- Nu știm dacă homepage-ul convertește
+- Nu putem optimiza CTA placement, copy, design
+- Nu avem baseline pentru A/B testing
+- Growth decisions sunt based on gut feel, nu data
+
+#### ✅ Soluția Propusă
+
+**Analytics Stack Lightweight**:
+1. **Plausible Analytics** (privacy-first, GDPR compliant, ~$9/month)
+   - Page views, unique visitors
+   - Traffic sources (organic, direct, referral)
+   - Device breakdown (mobile/desktop/tablet)
+2. **Custom Event Tracking** (frontend + backend)
+   - `cta_click` - click pe "Începe Gratuit" / "Vezi Demo"
+   - `register_started` - user a ajuns la /register
+   - `register_completed` - user a creat cont
+   - `email_verified` - user și-a verificat email
+   - `first_login` - user s-a logat prima dată
+3. **Conversion Funnel Dashboard** (simple Google Sheets / Notion)
+   - Vizualizare weekly: Visitor → Register → Verified → Active
+   - Target: 5% visitor→register, 80% register→verified, 70% verified→active
+
+#### 🛠️ Implementare Tehnică
+
+**1. Plausible Setup** (30 min)
+```typescript
+// frontend/src/app/layout.tsx
+import PlausibleProvider from 'next-plausible';
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="ro">
+      <head>
+        <PlausibleProvider domain="opensales.ro" />
+      </head>
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+**2. Custom Event Tracking** (1-2 ore)
+```typescript
+// frontend/src/lib/analytics.ts
+export function trackEvent(eventName: string, props?: Record<string, any>) {
+  if (typeof window !== 'undefined') {
+    window.plausible?.(eventName, { props });
+  }
+}
+
+// Usage in components:
+// <button onClick={() => trackEvent('cta_click', { cta: 'primary', location: 'hero' })}>
+```
+
+**3. Backend Event Logging** (optional, 1-2 ore)
+```typescript
+// backend/src/analytics/analytics.service.ts
+// Log conversion events to database for cohort analysis
+```
+
+**4. Funnel Dashboard** (1 oră)
+- Google Sheets template cu:
+  - Daily metrics (visitors, registrations, verifications, activations)
+  - Conversion rates (auto-calculated)
+  - Weekly trend charts
+
+#### 📊 Beneficii
+
+| Beneficiu | Impact |
+|-----------|--------|
+| **Data-driven decisions** | Optimizăm ce funcționează, nu guesswork |
+| **Funnel visibility** | Vedem unde se pierd userii |
+| **A/B testing ready** | Baseline clar pentru experiments |
+| **Investor reporting** | Metrics clare pentru fundraising |
+| **GDPR compliant** | Plausible = no cookies, privacy-first |
+
+#### 📁 Fișiere de Creat
+
+- [ ] `/frontend/src/lib/analytics.ts` - Tracking helper
+- [ ] `/frontend/src/app/layout.tsx` - Plausible provider
+- [ ] `/docs/ANALYTICS-DASHBOARD.md` - Funnel template
+- [ ] Railway env var: `NEXT_PUBLIC PLAUSIBLE_DOMAIN`
+
+#### 🎯 Task-uri pentru Echipă
+
+**Alex (Growth)**:
+- [ ] Setup Plausible account (Free trial → $9/month)
+- [ ] Add Plausible provider la frontend layout
+- [ ] Implement event tracking pe homepage CTAs
+- [ ] Implement tracking pe register flow
+- [ ] Create funnel dashboard (Google Sheets / Notion)
+- [ ] Define weekly reporting cadence
+
+**Radu (Developer)**:
+- [ ] Add backend event logging (optional, Phase 2)
+- [ ] Ensure verification flow triggers analytics events
+
+**Bogdan (PM)**:
+- [ ] Define key metrics & targets
+- [ ] Setup weekly analytics review
+- [ ] Create alert thresholds (ex: conversion drops >20%)
+
+#### 📈 Success Metrics
+
+| Metric | Baseline (TBD) | Target (30 days) |
+|--------|----------------|------------------|
+| Homepage visitors/week | - | 500+ |
+| Visitor → Register | - | 5%+ |
+| Register → Verified | - | 80%+ |
+| Verified → Active (7d) | - | 70%+ |
+
+#### 🚀 Priority & Timeline
+
+**Priority**: 🟡 **MEDIUM** (important dar nu critic)
+
+**Timeline**:
+- **Day 1**: Alex - Plausible setup + event tracking
+- **Day 2**: Alex - Funnel dashboard + first report
+- **Week 2**: First optimization based on data
+
+**Estimated Effort**: 4-6 hours total
+
+---
+
+### #4 - [Next Improvement - TBD]
 
 **Data**: TBD  
 **Status**: ⏳ Așteaptă next hourly check  
@@ -468,9 +608,42 @@ Marketplace involved, sync job details, etc.
 
 ## 📊 Stats
 
-| Total Proposals | Implemented | In Debate | Rejected |
-|-----------------|-------------|-----------|----------|
-| 1 | 0 | 1 | 0 |
+| Total Proposals | Implemented | In Progress | In Debate | Rejected |
+|-----------------|-------------|-------------|-----------|----------|
+| 3 | 0 | 1 | 1 | 0 |
+
+---
+
+## 🔄 Current Status (2026-04-01 16:45 UTC)
+
+### Improvement #2 - Remember Last Login + Email Verification
+**Status**: 🟡 **IN PROGRESS** (Radu implementation)
+
+**Progress**:
+- ✅ Database schema + migration (de5b002)
+- ✅ VerificationService created (a97f026)
+- ✅ Verification controller with 3 endpoints (729f02de)
+- ✅ Email verification page UI (d3af821)
+- ✅ Register redirect to /verify (ce6a617)
+- ✅ Remember Last Login functionality (f05bf83)
+- ✅ Login blocked for unverified users (f0dc351)
+- ⏳ Cătălin QA testing (blocked on Radu final deploy)
+
+**Next Steps**:
+1. Radu: Final testing + deploy pe Railway (dev)
+2. Cătălin: QA testing (6-8 hours)
+3. Bogdan: PM sign-off
+4. Deploy pe production
+
+**ETA**: Day 3-4
+
+---
+
+### Improvement #1 - Error Tracking System
+**Status**: 🟡 **ÎN DEZBATERE**
+
+Awaiting PM approval. Priority: Medium.
+Estimated effort: 2-3 days (Sentry setup + GitHub automation + dashboard).
 
 ---
 
