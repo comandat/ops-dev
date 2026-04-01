@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
@@ -32,17 +32,19 @@ model SystemConfig {
 }
 
 model User {
-  id        String    @id @default(cuid())
-  email     String    @unique
-  password  String
-  name      String?
-  role      String    @default("ADMIN")
-  tenantId  String    @default("default")
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  id           String             @id @default(cuid())
+  email        String             @unique
+  password     String
+  name         String?
+  role         String             @default("ADMIN")
+  tenantId     String             @default("default")
+  isVerified   Boolean            @default(false)
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
 
-  tenant    Tenant    @relation(fields: [tenantId], references: [id])
-  sessions  Session[]
+  tenant          Tenant           @relation(fields: [tenantId], references: [id])
+  sessions        Session[]
+  verificationCodes VerificationCode[]
 }
 
 model Session {
@@ -253,4 +255,19 @@ model OfferTemplate {
   updatedAt           DateTime @updatedAt
 
   @@index([tenantId, pluginName])
+}
+
+// ─── Email Verification ───────────────────────────────────────────────────────
+// Verification codes for email verification flow.
+model VerificationCode {
+  id        String   @id @default(cuid())
+  userId    String
+  code      String   // 6-digit code
+  expiresAt DateTime
+  isUsed    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, isUsed])
 }
