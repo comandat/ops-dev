@@ -265,13 +265,204 @@ Marketplace involved, sync job details, etc.
 
 ---
 
-### #2 - [Next Improvement - TBD]
+### #2 - Remember Last Login + Email Verification
+
+**Data**: 2026-04-01  
+**Status**: 🟢 Approved for Implementation  
+**Inițiat de**: User request (Hourly Check #2)
+
+#### 🎯 Problema
+
+**Partea 1 - Last Login Memory**:
+- Userii se loghează des cu același cont
+- Fiecare session trebuie să introducă email + password de la zero
+- Nu există "Remember Me" sau "Last Used Account"
+- **Impact**: Frecare la login, time loss, user frustration
+
+**Partea 2 - Email Verification**:
+- Oricine poate crea cont fără verificare email
+- Risc de spam accounts, fake users
+- Nu putem contacta users în caz de issues
+- **Impact**: Security risk, no user validation
+
+---
+
+#### ✅ Soluția Propusă
+
+**Partea 1: Remember Last Login**
+
+```
+┌─────────────────────────────────────────────────┐
+│  LOGIN PAGE                                     │
+├─────────────────────────────────────────────────┤
+│  Email Business                                 │
+│  ┌─────────────────────────────────────────┐   │
+│  │ nume@companie.ro                        │   │ ← Pre-filled if remembered
+│  └─────────────────────────────────────────┘   │
+│  [x] 📌 ține-mă minte data viitoare            │ ← New checkbox
+│                                                 │
+│  Parolă Securizată                              │
+│  ┌─────────────────────────────────────────┐   │
+│  │ ••••••••                                │   │
+│  └─────────────────────────────────────────┘   │
+│                                                 │
+│  [ ] Remember Me (30 days)                      │ ← Optional extended session
+│                                                 │
+│  [Acces Dashboard]                              │
+└─────────────────────────────────────────────────┘
+```
+
+**Implementare Tehnică**:
+1. **LocalStorage** (frontend): Salvează email după login success
+2. **Cookie** (30 days): Optional "Remember Me" pentru session extins
+3. **Pre-fill** la next visit: Citește localStorage, completează email field
+4. **Clear** la logout: Șterge email din localStorage
+
+**Files de modificat**:
+- `/frontend/src/app/login/page.tsx` - Add localStorage logic
+- `/frontend/src/components/auth/LoginForm.tsx` - Add checkbox + pre-fill
+- `/backend/src/auth/auth.controller.ts` - Add "remember me" cookie option
+
+---
+
+**Partea 2: Email Verification (Light)**
+
+```
+┌─────────────────────────────────────────────────┐
+│  REGISTER PAGE                                  │
+├─────────────────────────────────────────────────┤
+│  1. Completezi formularul (email, password)    │
+│  2. Primești email cu verification code        │
+│  3. Introduci codul în app                     │
+│  4. ✅ Cont activat → Login                    │
+└─────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────┐
+│  LOGIN PAGE (unverified user)                   │
+├─────────────────────────────────────────────────┤
+│  ⚠️ Contul tău nu este verificat                │
+│  Email trimis la: nume@companie.ro             │
+│  [Retrimite Email] [Introdu Codul]             │
+└─────────────────────────────────────────────────┘
+```
+
+**Implementare Tehnică**:
+1. **Database**: Add `isVerified` boolean la User model
+2. **Verification Code**: 6-digit code, expires în 15 min
+3. **Email Service**: AgentMail (radu@agentmail.to) sau SMTP
+4. **Flow**:
+   - Register → Create user (isVerified=false) → Send email code
+   - User enters code → Verify → isVerified=true → Login allowed
+   - Login attempt + !isVerified → Show verification screen
+
+**Files de creat/modificat**:
+- `backend/prisma/schema.prisma` - Add `isVerified` + `VerificationCode` model
+- `backend/src/auth/verification.service.ts` - Code generation + email
+- `backend/src/auth/verification.controller.ts` - Verify code endpoint
+- `/frontend/src/app/register/page.tsx` - Add verification step
+- `/frontend/src/app/verify/page.tsx` - New page for code entry
+
+---
+
+#### 📊 Beneficii
+
+| Beneficiu | Impact |
+|-----------|--------|
+| **Last Login** | 1-click login pentru returning users |
+| **Email Verification** | Security ↑, spam ↓, user validation |
+| **User Trust** | Professional feel, security signals |
+
+---
+
+#### ⚠️ Riscuri & Mitigare
+
+| Risc | Mitigare |
+|------|----------|
+| **LocalStorage security** | Doar email (nu password), HTTPS only |
+| **Email delivery failures** | Retry button, resend code (max 3/hour) |
+| **Code expiry confusion** | Clear UI messaging "Code expires in 15:00" |
+| **Existing users unverified** | Migration: mark all existing as verified, require new users only |
+
+---
+
+#### 📁 Fișiere de Creat/Modificat
+
+**Frontend**:
+- [ ] `/frontend/src/app/login/page.tsx` - Pre-fill email + checkbox
+- [ ] `/frontend/src/app/verify/page.tsx` - Verification code page (NEW)
+- [ ] `/frontend/src/app/register/page.tsx` - Add verification step
+- [ ] `/frontend/src/components/auth/VerificationForm.tsx` - NEW
+
+**Backend**:
+- [ ] `/backend/prisma/schema.prisma` - Add `isVerified` + `VerificationCode`
+- [ ] `/backend/src/auth/verification.service.ts` - NEW
+- [ ] `/backend/src/auth/verification.controller.ts` - NEW
+- [ ] `/backend/src/auth/auth.controller.ts` - Update login flow
+- [ ] Email template (verification code)
+
+**Database Migration**:
+- [ ] `prisma/migrations/[timestamp]_add_verification/` - Migration file
+
+---
+
+#### 🎯 Task-uri pentru Echipă
+
+**Radu (Full-stack)**:
+- [ ] Update Prisma schema (isVerified + VerificationCode model)
+- [ ] Run migration: `npx prisma migrate dev`
+- [ ] Create verification service (code generation + email)
+- [ ] Create verification controller (verify endpoint)
+- [ ] Update auth controller (check isVerified on login)
+- [ ] Update login page (pre-fill + remember me checkbox)
+- [ ] Create verify page (code entry UI)
+- [ ] Test flow complet (register → verify → login)
+
+**Cătălin (QA)**:
+- [ ] Testează last login memory (logout → login → pre-fill works?)
+- [ ] Testează email verification flow
+- [ ] Testează code expiry (15 min)
+- [ ] Testează resend code functionality
+- [ ] Testează migration pe existing users
+- [ ] E2E test: register → verify → login → logout → login (pre-fill)
+
+**Bogdan (PM)**:
+- [ ] Definește email template copy
+- [ ] Definește UI messages (errors, success)
+- [ ] Migration plan pentru existing users
+- [ ] Final approval înainte de deploy
+
+---
+
+#### 📈 Success Metrics
+
+| Metric | Target |
+|--------|--------|
+| Login time (returning users) | <5 sec (vs 30+ sec înainte) |
+| Email verification rate | >90% within 1 hour |
+| Code delivery success | >95% |
+| User complaints | 0 despre verification complexity |
+
+---
+
+#### 🚀 Priority & Timeline
+
+**Priority**: 🔴 **HIGH** (user request + security improvement)
+
+**Timeline**:
+- **Day 1**: Radu - Database + Backend implementation
+- **Day 2**: Radu - Frontend implementation
+- **Day 3**: Cătălin - QA testing
+- **Day 4**: Deploy pe Railway (dev → production)
+
+**Estimated Effort**: 8-12 hours total
+
+---
+
+### #3 - [Next Improvement - TBD]
 
 **Data**: TBD  
 **Status**: ⏳ Așteaptă next hourly check  
 **Inițiat de**: Bogdan/Alex session
-
-_(De completat la următoarea sesiune de improvement)_
 
 ---
 
