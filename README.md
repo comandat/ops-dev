@@ -2,6 +2,8 @@
 
 Platformă SaaS multi-tenant pentru gestionarea vânzărilor pe marketplace-uri (eMAG, Trendyol, FGO etc.).
 
+**Homepage**: https://frontend-development-39d3.up.railway.app (Development)
+
 ## Structura Proiectului
 
 ```
@@ -89,6 +91,32 @@ Proiectul folosește **un singur repo GitHub** (monorepo) cu **2 servicii Railwa
 
 **Frontend:**
 - `NEXT_PUBLIC_API_URL` – URL-ul serviciului Backend Railway
+
+## 🏠 Homepage (Marketing Site)
+
+Homepage-ul de marketing este live pe `/` și include:
+- **Hero Section** - Headline + CTA-uri către register/login
+- **Stats Bar** - 99.9% uptime, 2k+ comenzi/minut
+- **Features** - 4 cards (Marketplace Sync, Order Management, Pricing Automation, Analytics)
+- **Pricing** - 4 tiers (Free, Starter €29, Pro €79, Enterprise Custom)
+- **CTA Section** - Final call-to-action
+- **Footer** - Links și informații legale
+
+**Design**: Dark theme premium (inspirat de Linear.app + Stripe.com)  
+**Responsive**: Mobile-first, testat pe 375px - 1920px  
+**Performance**: Lighthouse >90 (target)
+
+### Routes
+```
+/                 → Marketing homepage (public)
+/dashboard        → Dashboard aplicație (auth required)
+/login            → Login page
+/register         → Register page
+```
+
+Documentație completă: `docs/DEPLOY.md`
+
+---
 
 ## Plugin-uri
 
