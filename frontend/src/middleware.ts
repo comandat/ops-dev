@@ -5,7 +5,12 @@ export function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl;
 
     // Public routes that don't need auth
-    const isPublicRoute = pathname === '/login' || pathname === '/register';
+    const isPublicRoute = 
+        pathname === '/' || 
+        pathname === '/login' || 
+        pathname === '/register' ||
+        pathname.startsWith('/_next') ||
+        pathname.startsWith('/api');
 
     // Check for Lucia session cookie
     const allCookies = request.cookies.getAll().map(c => c.name);
