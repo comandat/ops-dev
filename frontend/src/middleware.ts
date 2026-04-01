@@ -10,7 +10,8 @@ export function middleware(request: NextRequest) {
         pathname === '/login' || 
         pathname === '/register' ||
         pathname.startsWith('/_next') ||
-        pathname.startsWith('/api');
+        pathname.startsWith('/api') ||
+        pathname.startsWith('/auth');
 
     // Check for Lucia session cookie
     const allCookies = request.cookies.getAll().map(c => c.name);
