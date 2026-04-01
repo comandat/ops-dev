@@ -63,6 +63,13 @@ npx playwright test
 
 > **Regulă:** Rulează testele înainte de fiecare `git push` pe `main`.
 
+## 🧭 Team Access (Development)
+
+- **Branch**: Toate dezvoltările pe `dev` branch
+- **PM**: Bogdan (Lead Product Manager)
+- **Dev**: Radu (radu@agentmail.to)
+- **Railway Project**: responsible-nature (Development environment)
+
 ## Deploy pe Railway
 
 Proiectul folosește **un singur repo GitHub** (monorepo) cu **2 servicii Railway separate**:
