@@ -5,7 +5,7 @@ WORKDIR /app
 COPY package*.json ./
 COPY prisma ./prisma/
 
-RUN npm ci
+RUN npm ci --legacy-peer-deps
 
 COPY . .
 RUN npx prisma generate
@@ -16,7 +16,7 @@ FROM node:20-alpine AS prod-deps
 WORKDIR /app
 
 COPY package*.json ./
-RUN npm ci --omit=dev
+RUN npm ci --omit=dev --legacy-peer-deps
 
 # ---- Production Stage ----
 FROM node:20-alpine AS runner
