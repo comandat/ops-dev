@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY package*.json ./
 COPY prisma ./prisma/
-COPY prisma.config.ts ./
+
 RUN npm ci
 
 COPY . .
@@ -31,7 +31,7 @@ COPY --from=builder /app/node_modules/@prisma/client ./node_modules/@prisma/clie
 
 COPY --from=builder /app/package.json ./
 COPY --from=builder /app/prisma ./prisma
-COPY --from=builder /app/prisma.config.ts ./
+
 COPY --from=builder /app/plugins ./plugins
 COPY entrypoint.sh ./entrypoint.sh
 
