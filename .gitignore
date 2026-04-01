@@ -61,6 +61,8 @@ Thumbs.db
 .temp
 .tmp
 tmp/
+qa-suite/
+
 
 # Uploads (runtime data, not code)
 backend/uploads/
