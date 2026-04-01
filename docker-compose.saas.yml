@@ -1,0 +1,70 @@
+# docker-compose.saas.yml
+# ─────────────────────────────────────────────────────────
+# SaaS / Cloud: multi-tenant, PostgreSQL, Redis (BullMQ).
+# Run:  docker compose -f docker-compose.saas.yml up
+#
+# For production: set all env vars in a .env file or secrets manager.
+# ─────────────────────────────────────────────────────────
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: always
+    environment:
+      POSTGRES_DB: opensales
+      POSTGRES_USER: ${POSTGRES_USER:-opensales}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD}
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U opensales" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    restart: always
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: ./backend
+    restart: always
+    ports:
+      - "3001:3001"
+    environment:
+      - OPENSALES_MODE=saas # ← Key flag: multi-tenant
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-opensales}:${POSTGRES_PASSWORD}@postgres:5432/opensales
+      - JWT_SECRET=${JWT_SECRET:?Set JWT_SECRET}
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - PORT=3001
+      - PLUGIN_ORDER_SYNC_INTERVAL_MS=900000
+      - PLUGIN_TIMEOUT_MS=30000
+    volumes:
+      - ./backend/plugins:/app/plugins # Shared plugin folder (all tenants share same plugin code)
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  frontend:
+    build: ./frontend
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=${API_URL:-http://localhost:3001}
+    depends_on:
+      - backend
+
+volumes:
+  pg-data:
+  redis-data:

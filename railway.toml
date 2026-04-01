@@ -1,0 +1,32 @@
+# railway.toml – OpenSales Monorepo Configuration
+#
+# HOW TO SET UP ON RAILWAY:
+# ─────────────────────────────────────────────────────────────
+# 1. Push this repo to GitHub
+# 2. In Railway: New Project → Deploy from GitHub repo
+# 3. Add Service #1 (Backend):
+#      - Root Directory:   backend
+#      - Dockerfile Path:  Dockerfile
+#      - Watch Paths:      backend/**
+# 4. Add Service #2 (Frontend):
+#      - Root Directory:   frontend
+#      - Dockerfile Path:  Dockerfile
+#      - Watch Paths:      frontend/**
+# 5. Add Railway Plugins: PostgreSQL + Redis
+# ─────────────────────────────────────────────────────────────
+#
+# BACKEND Environment Variables (set in Railway dashboard):
+#   DATABASE_URL          = ${{Postgres.DATABASE_URL}}
+#   REDIS_HOST            = ${{Redis.REDIS_HOST}}
+#   REDIS_PORT            = ${{Redis.REDIS_PORT}}
+#   JWT_SECRET            = <strong-random-secret>
+#   OPENSALES_MODE        = saas
+#   PORT                  = 3001
+#
+# FRONTEND Environment Variables (set in Railway dashboard):
+#   NEXT_PUBLIC_API_URL   = https://<your-backend>.railway.app
+#   PORT                  = 3000
+#
+# IMPORTANT: NEXT_PUBLIC_API_URL is baked into the JS bundle at
+# build time – Railway must supply it as a build-time variable.
+# ─────────────────────────────────────────────────────────────

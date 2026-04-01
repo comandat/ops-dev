@@ -1,0 +1,256 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Tenant (multi-tenancy) ─────────────────────────────────────────────────
+model Tenant {
+  id        String   @id @default(cuid())
+  name      String
+  plan      String   @default("free") // free | starter | pro | enterprise
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  users         User[]
+  products      Product[]
+  orders        Order[]
+  customers     Customer[]
+  pluginConfigs PluginConfig[]
+  activityLogs  ActivityLog[]
+  productOffers ProductOffer[]
+}
+
+// System configuration and admin settings
+model SystemConfig {
+  key   String @id
+  value String
+}
+
+model User {
+  id        String    @id @default(cuid())
+  email     String    @unique
+  password  String
+  name      String?
+  role      String    @default("ADMIN")
+  tenantId  String    @default("default")
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  tenant    Tenant    @relation(fields: [tenantId], references: [id])
+  sessions  Session[]
+}
+
+model Session {
+  id        String   @id
+  userId    String
+  expiresAt DateTime
+
+  user      User     @relation(references: [id], fields: [userId], onDelete: Cascade)
+}
+
+// Stores the API keys and settings for installed plugins (e.g., eMAG, Temu)
+model PluginConfig {
+  id          String   @id @default(cuid())
+  pluginName  String
+  tenantId    String   @default("default")
+  isActive    Boolean  @default(false)
+  settings    String   // JSON string containing API keys
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  tenant      Tenant   @relation(fields: [tenantId], references: [id])
+
+  @@unique([pluginName, tenantId])
+}
+
+model Product {
+  id                String   @id @default(cuid())
+  tenantId          String   @default("default")
+  sku               String
+  name              String
+  description       String?
+  price             Float
+  originalPrice     Float?   // mapped from "Preț întreg" for eMAG/Trendyol API pushes
+  taxRate           Float?
+  stock             Int      @default(0)
+  lowStockThreshold Int      @default(10)
+  images            String?  // JSON array of image URLs
+  attributes        String?  // JSON string for dynamic consolidation (Brand, EAN, Prod ch. X, etc.)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  tenant        Tenant         @relation(fields: [tenantId], references: [id])
+  orderItems    OrderItem[]
+  offers        ProductOffer[]
+
+  @@unique([tenantId, sku])
+}
+
+// ─── Product Offer ────────────────────────────────────────────────────────────
+// A ProductOffer represents a product listing on a specific marketplace plugin.
+// Override fields (title, description, images, price) are null = inherit from Product.
+// When isLinked=true, any changes to the Product propagate automatically to the offer.
+// When isLinked=false, the offer is "detached" and won't receive product updates.
+model ProductOffer {
+  id          String   @id @default(cuid())
+  tenantId    String   @default("default")
+  productId   String
+  pluginName  String   // e.g. "emag-connector"
+
+  // External marketplace identity (filled after first push)
+  externalId  String?
+
+  // Override fields — null = inherit from parent Product
+  title       String?  // null → use product.name
+  description String?  // null → use product.description
+  images      String?  // null → use product.images (JSON array)
+  price       Float?   // null → use product.price
+  originalPrice Float? // null → use product.originalPrice
+  attributes  String?  // JSON string for dynamic platform-specific columns (Offer ch. X, Magazin virtual, TVA, etc.)
+  externalCategory String?
+
+  // Sync control
+  isLinked    Boolean  @default(true)   // true = changes on Product propagate here
+  isActive    Boolean  @default(true)   // false = listing deactivated on marketplace
+
+  // State tracking
+  status      String   @default("DRAFT") // DRAFT | SYNCED | ERROR | PENDING | INACTIVE
+  lastSyncError String?
+  lastSyncAt  DateTime?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  tenant      Tenant   @relation(fields: [tenantId], references: [id])
+  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([tenantId, productId, pluginName])
+}
+
+// ─── Legacy mapping (kept for migration, use ProductOffer going forward) ──────
+model ExternalProductMapping {
+  id               String   @id @default(cuid())
+  productId        String
+  tenantId         String   @default("default")
+  pluginName       String
+  externalId       String
+  externalCategory String?
+  status           String   @default("SYNCED")
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@unique([productId, pluginName, tenantId])
+}
+
+model Customer {
+  id        String   @id @default(cuid())
+  tenantId  String   @default("default")
+  email     String
+  name      String
+  phone     String?
+  address   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tenant    Tenant   @relation(fields: [tenantId], references: [id])
+  orders    Order[]
+
+  @@unique([tenantId, email])
+}
+
+model Order {
+  id           String   @id @default(cuid())
+  tenantId     String   @default("default")
+  orderNumber  String
+  status       String   @default("NEW")
+  total        Float
+  notes        String?  // Internal notes added by users
+  customerId   String?
+  sourcePlugin String?
+  externalId   String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  tenant    Tenant               @relation(fields: [tenantId], references: [id])
+  customer  Customer?            @relation(fields: [customerId], references: [id])
+  items     OrderItem[]
+  history   OrderStatusHistory[]
+
+  @@unique([tenantId, orderNumber])
+}
+
+model OrderStatusHistory {
+  id        String   @id @default(cuid())
+  orderId   String
+  status    String
+  note      String?
+  createdAt DateTime @default(now())
+
+  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+}
+
+model OrderItem {
+  id          String  @id @default(cuid())
+  orderId     String
+  productId   String?
+  productName String
+  sku         String?
+  quantity    Int
+  unitPrice   Float
+
+  order   Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product Product? @relation(fields: [productId], references: [id])
+}
+
+// ─── Activity Log ─────────────────────────────────────────────────────────────
+// Persistent audit trail for all system events.
+model ActivityLog {
+  id        String   @id @default(cuid())
+  tenantId  String   @default("default")
+  source    String   // plugin name, "system", "user:admin@x.com"
+  action    String   // "order.imported", "offer.pushed", "sync.failed"
+  details   String?  // JSON snapshot of relevant data
+  level     String   @default("info") // info | warn | error | success
+  createdAt DateTime @default(now())
+
+  tenant    Tenant   @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId, createdAt])
+  @@index([tenantId, source])
+}
+
+// ─── Pricing Rules ────────────────────────────────────────────────────────────
+// Per-marketplace automated pricing rules applied when resolving offer prices.
+model PricingRule {
+  id         String   @id @default(cuid())
+  tenantId   String   @default("default")
+  pluginName String   // e.g. "emag-connector" or "*" for all
+  type       String   // PERCENTAGE_ABOVE | FIXED_ABOVE | FIXED_PRICE
+  value      Float    // e.g. 10 (for 10%) or 15 (for +15 RON)
+  label      String?  // Optional human-readable label
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([tenantId, pluginName])
+}
+
+// ─── Offer Templates ─────────────────────────────────────────────────────────
+// Predefined structures for quickly creating offers on a specific marketplace.
+model OfferTemplate {
+  id                  String   @id @default(cuid())
+  tenantId            String   @default("default")
+  name                String
+  pluginName          String   // e.g. "emag-connector"
+  titleTemplate       String?  // e.g. "{name} - Nou" (supports {name}, {sku})
+  descriptionTemplate String?
+  externalCategory    String?
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  @@index([tenantId, pluginName])
+}

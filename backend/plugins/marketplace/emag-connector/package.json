@@ -1,0 +1,8 @@
+{
+    "name": "emag-connector",
+    "version": "1.0.0",
+    "description": "OpenSales official eMAG marketplace plugin",
+    "main": "index.js",
+    "author": "OpenSales Team",
+    "license": "MIT"
+}

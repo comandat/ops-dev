@@ -1,0 +1,42 @@
+# OpenSales - Docker Compose
+# Run: docker-compose up --build
+
+services:
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+  backend:
+    build: ./backend
+    ports:
+      - "3001:3001"
+    environment:
+      # SQLite stored in a named volume so data persists across restarts
+      - DATABASE_URL=file:/app/data/opensales.db
+      - JWT_SECRET=change-me-in-production
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - PORT=3001
+      - CORS_ORIGIN=true
+    depends_on:
+      - redis
+    volumes:
+      - backend_data:/app/data
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        # NEXT_PUBLIC_ vars are baked at build time - must be passed as build args
+        NEXT_PUBLIC_API_URL: http://localhost:3001
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+volumes:
+  redis_data:
+  backend_data:

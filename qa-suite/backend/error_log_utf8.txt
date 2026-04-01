@@ -1,0 +1,424 @@
+﻿  console.log
+    [dotenv@17.3.1] injecting env (4) from ..\..\backend\.env -- tip: ≡ƒöÉ prevent building .env in docker: https://dotenvx.com/prebuild
+
+      at _log (node_modules/dotenv/lib/main.js:139:11)
+
+  console.log
+    PrismaService: DATABASE_URL = file:C:/Users/titam/Documents/Zebra Printer Test/OpenSales/backend/prisma/test.db
+
+      at new PrismaService (src/prisma/prisma.service.ts:7:17)
+          at async Promise.all (index 3)
+          at async Promise.all (index 3)
+
+  console.error
+    AggregateError: 
+        at internalConnectMultiple (node:net:1134:18)
+        at afterConnectMultiple (node:net:1715:7) {
+      code: 'ECONNREFUSED',
+      [errors]: [
+        Error: connect ECONNREFUSED ::1:6379
+            at createConnectionError (node:net:1678:14)
+            at afterConnectMultiple (node:net:1708:16) {
+          errno: -4078,
+          code: 'ECONNREFUSED',
+          syscall: 'connect',
+          address: '::1',
+          port: 6379
+        },
+        Error: connect ECONNREFUSED 127.0.0.1:6379
+            at createConnectionError (node:net:1678:14)
+            at afterConnectMultiple (node:net:1708:16) {
+          errno: -4078,
+          code: 'ECONNREFUSED',
+          syscall: 'connect',
+          address: '127.0.0.1',
+          port: 6379
+        }
+      ]
+    }
+
+      at Queue.emit (node_modules/bullmq/src/classes/queue-base.ts:137:17)
+      at Queue.emit (node_modules/bullmq/src/classes/queue.ts:192:18)
+      at RedisConnection.<anonymous> (node_modules/bullmq/src/classes/queue-base.ts:76:56)
+      at EventEmitter.RedisConnection.handleClientError (node_modules/bullmq/src/classes/redis-connection.ts:123:12)
+      at EventEmitter.silentEmit (node_modules/ioredis/built/Redis.js:529:30)
+      at Socket.<anonymous> (node_modules/ioredis/built/redis/event_handler.js:221:14)
+
+  console.error
+    AggregateError: 
+        at internalConnectMultiple (node:net:1134:18)
+        at afterConnectMultiple (node:net:1715:7) {
+      code: 'ECONNREFUSED',
+      [errors]: [
+        Error: connect ECONNREFUSED ::1:6379
+            at createConnectionError (node:net:1678:14)
+            at afterConnectMultiple (node:net:1708:16) {
+          errno: -4078,
+          code: 'ECONNREFUSED',
+          syscall: 'connect',
+          address: '::1',
+          port: 6379
+        },
+        Error: connect ECONNREFUSED 127.0.0.1:6379
+            at createConnectionError (node:net:1678:14)
+            at afterConnectMultiple (node:net:1708:16) {
+          errno: -4078,
+          code: 'ECONNREFUSED',
+          syscall: 'connect',
+          address: '127.0.0.1',
+          port: 6379
+        }
+      ]
+    }
+
+      at Queue.emit (node_modules/bullmq/src/classes/queue-base.ts:137:17)
+      at Queue.emit (node_modules/bullmq/src/classes/queue.ts:192:18)
+      at RedisConnection.<anonymous> (node_modules/bullmq/src/classes/queue-base.ts:76:56)
+      at EventEmitter.RedisConnection.handleClientError (node_modules/bullmq/src/classes/redis-connection.ts:123:12)
+      at EventEmitter.silentEmit (node_modules/ioredis/built/Redis.js:529:30)
+      at Socket.<anonymous> (node_modules/ioredis/built/redis/event_handler.js:221:14)
+
+  console.error
+    AggregateError: 
+        at internalConnectMultiple (node:net:1134:18)
+        at afterConnectMultiple (node:net:1715:7) {
+      code: 'ECONNREFUSED',
+      [errors]: [
+        Error: connect ECONNREFUSED ::1:6379
+            at createConnectionError (node:net:1678:14)
+            at afterConnectMultiple (node:net:1708:16) {
+          errno: -4078,
+          code: 'ECONNREFUSED',
+          syscall: 'connect',
+          address: '::1',
+          port: 6379
+        },
+        Error: connect ECONNREFUSED 127.0.0.1:6379
+            at createConnectionError (node:net:1678:14)
+            at afterConnectMultiple (node:net:1708:16) {
+          errno: -4078,
+          code: 'ECONNREFUSED',
+          syscall: 'connect',
+          address: '127.0.0.1',
+          port: 6379
+        }
+      ]
+    }
+
+      at Worker.emit (node_modules/bullmq/src/classes/queue-base.ts:137:17)
+      at Worker.emit (node_modules/bullmq/src/classes/worker.ts:409:18)
+      at RedisConnection.<anonymous> (node_modules/bullmq/src/classes/queue-base.ts:76:56)
+      at EventEmitter.RedisConnection.handleClientError (node_modules/bullmq/src/classes/redis-connection.ts:123:12)
+      at EventEmitter.silentEmit (node_modules/ioredis/built/Redis.js:529:30)
+      at Socket.<anonymous> (node_modules/ioredis/built/redis/event_handler.js:221:14)
+
+  console.error
+    AggregateError: 
+        at internalConnectMultiple (node:net:1134:18)
+        at afterConnectMultiple (node:net:1715:7) {
+      code: 'ECONNREFUSED',
+      [errors]: [
+        Error: connect ECONNREFUSED ::1:6379
+            at createConnectionError (node:net:1678:14)
+            at afterConnectMultiple (node:net:1708:16) {
+          errno: -4078,
+          code: 'ECONNREFUSED',
+          syscall: 'connect',
+          address: '::1',
+          port: 6379
+        },
+        Error: connect ECONNREFUSED 127.0.0.1:6379
+            at createConnectionError (node:net:1678:14)
+            at afterConnectMultiple (node:net:1708:16) {
+          errno: -4078,
+          code: 'ECONNREFUSED',
+          syscall: 'connect',
+          address: '127.0.0.1',
+          port: 6379
+        }
+      ]
+    }
+
+      at Worker.emit (node_modules/bullmq/src/classes/queue-base.ts:137:17)
+      at Worker.emit (node_modules/bullmq/src/classes/worker.ts:409:18)
+      at RedisConnection.<anonymous> (node_modules/bullmq/src/classes/worker.ts:359:55)
+      at EventEmitter.RedisConnection.handleClientError (node_modules/bullmq/src/classes/redis-connection.ts:123:12)
+      at EventEmitter.silentEmit (node_modules/ioredis/built/Redis.js:529:30)
+      at Socket.<anonymous> (node_modules/ioredis/built/redis/event_handler.js:221:14)
+
+  console.log
+    TenantMiddleware Debug (No SaaS or No User): { isSaaS: true, env: 'saas', user: undefined }
+
+      at TenantMiddleware.use (src/tenant/tenant.middleware.ts:31:21)
+
+  console.log
+    [AuthService] createSession for userId: cmmewpfkt0001nnewp6kz14w1
+
+      at AuthService.createSession (src/auth/auth.service.ts:41:17)
+
+  console.log
+    [AuthService] createSession result: {
+      id: 'hmhlzuvstr5shllihy6hb5pxigbuk62yczaeiqoz',
+      userId: 'cmmewpfkt0001nnewp6kz14w1',
+      fresh: true,
+      expiresAt: 2026-04-05T13:04:42.276Z
+    }
+
+      at AuthService.createSession (src/auth/auth.service.ts:43:17)
+
+  console.log
+    TenantMiddleware Debug: {
+      isSaaS: true,
+      env: 'saas',
+      user: {
+        email: 'sales.admin.1772802282158@test.com',
+        name: 'Sales Manager',
+        role: 'ADMIN',
+        tenantId: 'tenant_958b0d7d-472a-4854-8b5c-e042b9549b6b',
+        id: 'cmmewpfkt0001nnewp6kz14w1'
+      }
+    }
+
+      at TenantMiddleware.use (src/tenant/tenant.middleware.ts:26:21)
+
+  console.log
+    TenantMiddleware Debug: {
+      isSaaS: true,
+      env: 'saas',
+      user: {
+        email: 'sales.admin.1772802282158@test.com',
+        name: 'Sales Manager',
+        role: 'ADMIN',
+        tenantId: 'tenant_958b0d7d-472a-4854-8b5c-e042b9549b6b',
+        id: 'cmmewpfkt0001nnewp6kz14w1'
+      }
+    }
+
+      at TenantMiddleware.use (src/tenant/tenant.middleware.ts:26:21)
+
+  console.log
+    TenantMiddleware Debug: {
+      isSaaS: true,
+      env: 'saas',
+      user: {
+        email: 'sales.admin.1772802282158@test.com',
+        name: 'Sales Manager',
+        role: 'ADMIN',
+        tenantId: 'tenant_958b0d7d-472a-4854-8b5c-e042b9549b6b',
+        id: 'cmmewpfkt0001nnewp6kz14w1'
+      }
+    }
+
+      at TenantMiddleware.use (src/tenant/tenant.middleware.ts:26:21)
+
+  console.log
+    TenantMiddleware Debug: {
+      isSaaS: true,
+      env: 'saas',
+      user: {
+        email: 'sales.admin.1772802282158@test.com',
+        name: 'Sales Manager',
+        role: 'ADMIN',
+        tenantId: 'tenant_958b0d7d-472a-4854-8b5c-e042b9549b6b',
+        id: 'cmmewpfkt0001nnewp6kz14w1'
+      }
+    }
+
+      at TenantMiddleware.use (src/tenant/tenant.middleware.ts:26:21)
+
+  console.log
+    TenantMiddleware Debug: {
+      isSaaS: true,
+      env: 'saas',
+      user: {
+        email: 'sales.admin.1772802282158@test.com',
+        name: 'Sales Manager',
+        role: 'ADMIN',
+        tenantId: 'tenant_958b0d7d-472a-4854-8b5c-e042b9549b6b',
+        id: 'cmmewpfkt0001nnewp6kz14w1'
+      }
+    }
+
+      at TenantMiddleware.use (src/tenant/tenant.middleware.ts:26:21)
+
+  console.log
+    TenantMiddleware Debug: {
+      isSaaS: true,
+      env: 'saas',
+      user: {
+        email: 'sales.admin.1772802282158@test.com',
+        name: 'Sales Manager',
+        role: 'ADMIN',
+        tenantId: 'tenant_958b0d7d-472a-4854-8b5c-e042b9549b6b',
+        id: 'cmmewpfkt0001nnewp6kz14w1'
+      }
+    }
+
+      at TenantMiddleware.use (src/tenant/tenant.middleware.ts:26:21)
+
+  console.log
+    TenantMiddleware Debug: {
+      isSaaS: true,
+      env: 'saas',
+      user: {
+        email: 'sales.admin.1772802282158@test.com',
+        name: 'Sales Manager',
+        role: 'ADMIN',
+        tenantId: 'tenant_958b0d7d-472a-4854-8b5c-e042b9549b6b',
+        id: 'cmmewpfkt0001nnewp6kz14w1'
+      }
+    }
+
+      at TenantMiddleware.use (src/tenant/tenant.middleware.ts:26:21)
+
+  console.log
+    TenantMiddleware Debug: {
+      isSaaS: true,
+      env: 'saas',
+      user: {
+        email: 'sales.admin.1772802282158@test.com',
+        name: 'Sales Manager',
+        role: 'ADMIN',
+        tenantId: 'tenant_958b0d7d-472a-4854-8b5c-e042b9549b6b',
+        id: 'cmmewpfkt0001nnewp6kz14w1'
+      }
+    }
+
+      at TenantMiddleware.use (src/tenant/tenant.middleware.ts:26:21)
+
+  console.log
+    TenantMiddleware Debug: {
+      isSaaS: true,
+      env: 'saas',
+      user: {
+        email: 'sales.admin.1772802282158@test.com',
+        name: 'Sales Manager',
+        role: 'ADMIN',
+        tenantId: 'tenant_958b0d7d-472a-4854-8b5c-e042b9549b6b',
+        id: 'cmmewpfkt0001nnewp6kz14w1'
+      }
+    }
+
+      at TenantMiddleware.use (src/tenant/tenant.middleware.ts:26:21)
+
+  console.log
+    TenantMiddleware Debug: {
+      isSaaS: true,
+      env: 'saas',
+      user: {
+        email: 'sales.admin.1772802282158@test.com',
+        name: 'Sales Manager',
+        role: 'ADMIN',
+        tenantId: 'tenant_958b0d7d-472a-4854-8b5c-e042b9549b6b',
+        id: 'cmmewpfkt0001nnewp6kz14w1'
+      }
+    }
+
+      at TenantMiddleware.use (src/tenant/tenant.middleware.ts:26:21)
+
+  console.log
+    TenantMiddleware Debug: {
+      isSaaS: true,
+      env: 'saas',
+      user: {
+        email: 'sales.admin.1772802282158@test.com',
+        name: 'Sales Manager',
+        role: 'ADMIN',
+        tenantId: 'tenant_958b0d7d-472a-4854-8b5c-e042b9549b6b',
+        id: 'cmmewpfkt0001nnewp6kz14w1'
+      }
+    }
+
+      at TenantMiddleware.use (src/tenant/tenant.middleware.ts:26:21)
+
+  console.log
+    TenantMiddleware Debug: {
+      isSaaS: true,
+      env: 'saas',
+      user: {
+        email: 'sales.admin.1772802282158@test.com',
+        name: 'Sales Manager',
+        role: 'ADMIN',
+        tenantId: 'tenant_958b0d7d-472a-4854-8b5c-e042b9549b6b',
+        id: 'cmmewpfkt0001nnewp6kz14w1'
+      }
+    }
+
+      at TenantMiddleware.use (src/tenant/tenant.middleware.ts:26:21)
+
+  console.log
+    TenantMiddleware Debug: {
+      isSaaS: true,
+      env: 'saas',
+      user: {
+        email: 'sales.admin.1772802282158@test.com',
+        name: 'Sales Manager',
+        role: 'ADMIN',
+        tenantId: 'tenant_958b0d7d-472a-4854-8b5c-e042b9549b6b',
+        id: 'cmmewpfkt0001nnewp6kz14w1'
+      }
+    }
+
+      at TenantMiddleware.use (src/tenant/tenant.middleware.ts:26:21)
+
+  console.log
+    TenantMiddleware Debug: {
+      isSaaS: true,
+      env: 'saas',
+      user: {
+        email: 'sales.admin.1772802282158@test.com',
+        name: 'Sales Manager',
+        role: 'ADMIN',
+        tenantId: 'tenant_958b0d7d-472a-4854-8b5c-e042b9549b6b',
+        id: 'cmmewpfkt0001nnewp6kz14w1'
+      }
+    }
+
+      at TenantMiddleware.use (src/tenant/tenant.middleware.ts:26:21)
+
+  console.log
+    TenantMiddleware Debug: {
+      isSaaS: true,
+      env: 'saas',
+      user: {
+        email: 'sales.admin.1772802282158@test.com',
+        name: 'Sales Manager',
+        role: 'ADMIN',
+        tenantId: 'tenant_958b0d7d-472a-4854-8b5c-e042b9549b6b',
+        id: 'cmmewpfkt0001nnewp6kz14w1'
+      }
+    }
+
+      at TenantMiddleware.use (src/tenant/tenant.middleware.ts:26:21)
+
+node.exe : PASS ./sprint3-sales-ops.e2e-spec.ts
+At line:1 char:1
++ & "C:\Program Files\nodejs/node.exe" "C:\Program Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (PASS ./sprint3-sales-ops.e2e-spec.ts:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  Sprint 3: Sales & Operations (e2e)
+    1. Orders Management API
+      ΓêÜ [Happy Path] should create an order manually (31 ms)
+      ΓêÜ [Happy Path] should retrieve the order by ID (7 ms)
+      ΓêÜ [Happy Path] should update order status and notes (38 ms)
+      ΓêÜ [Happy Path] should list orders with filters (7 ms)
+    2. Offers & Marketplace Mappings API
+      ΓêÜ [Happy Path] should create an offer for the product (16 ms)
+      ΓêÜ [Happy Path] should resolve offer with fallback to product data (5 ms)
+      ΓêÜ [Happy Path] should update offer details (16 ms)
+      ΓêÜ [Happy Path] should toggle offer active status (16 ms)
+    3. Offer Templates API
+      ΓêÜ [Happy Path] should create an offer template (9 ms)
+      ΓêÜ [Happy Path] should retrieve offer templates (5 ms)
+      ΓêÜ [Happy Path] should apply offer template to a product (23 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       11 passed, 11 total
+Snapshots:   0 total
+Time:        1.932 s, estimated 2 s
+Ran all test suites matching sprint3-sales-ops.e2e-spec.ts.
+Jest did not exit one second after the test run has completed.
+
+'This usually means that there are asynchronous operations that weren't stopped in your tests. Consider running Jest with `--detectOpenHandles` to troubleshoot this issue.

@@ -1,0 +1,7 @@
+{
+    "name": "fgo-connector",
+    "version": "1.0.0",
+    "description": "FGO Invoicing Connector for OpenSales",
+    "main": "index.js",
+    "dependencies": {}
+}

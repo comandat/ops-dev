@@ -1,0 +1,91 @@
+# OpenSales – SaaS Platform
+
+Platformă SaaS multi-tenant pentru gestionarea vânzărilor pe marketplace-uri (eMAG, Trendyol, FGO etc.).
+
+## Structura Proiectului
+
+```
+OpenSales/
+├── backend/          # NestJS API (Serviciu Railway #1)
+├── frontend/         # Next.js App (Serviciu Railway #2)
+├── qa-suite/         # Teste E2E cu Playwright (rulare locală)
+├── docs/             # Documentație plugin-uri și integrări
+└── docker-compose.saas.yml
+```
+
+## Pornire Locală
+
+### Backend
+```bash
+cd backend
+npm ci
+npx prisma generate
+npx prisma db push
+npm run start:dev
+```
+
+### Frontend
+```bash
+cd frontend
+npm ci
+npm run dev
+```
+
+Asigură-te că ai un fișier `backend/.env` cu:
+```env
+DATABASE_URL=postgresql://user:pass@localhost:5432/opensales
+JWT_SECRET=your-secret
+REDIS_HOST=localhost
+REDIS_PORT=6379
+```
+
+## Rulare cu Docker (local)
+
+```bash
+docker compose -f docker-compose.saas.yml up --build
+```
+
+## Teste
+
+### Unit + Integration (Backend)
+```bash
+cd backend
+npm ci
+npm test
+```
+
+### E2E cu Playwright
+```bash
+cd qa-suite
+npm ci
+npx playwright test
+```
+
+> **Regulă:** Rulează testele înainte de fiecare `git push` pe `main`.
+
+## Deploy pe Railway
+
+Proiectul folosește **un singur repo GitHub** (monorepo) cu **2 servicii Railway separate**:
+
+| Serviciu | Root Directory | Watch Path |
+|----------|---------------|------------|
+| Backend  | `backend/`    | `backend/**` |
+| Frontend | `frontend/`   | `frontend/**` |
+
+### Variabile de mediu Railway
+
+**Backend:**
+- `DATABASE_URL` – oferit de Railway PostgreSQL plugin
+- `JWT_SECRET` – setează un secret puternic
+- `REDIS_HOST` / `REDIS_PORT` – Railway Redis plugin
+- `OPENSALES_MODE=saas`
+
+**Frontend:**
+- `NEXT_PUBLIC_API_URL` – URL-ul serviciului Backend Railway
+
+## Plugin-uri
+
+Documentația integrărilor externe se găsește în `docs/plugin-integrations/`:
+- `emag/` – API eMAG Marketplace v4.5
+- `trendyol/` – Documentație API Trendyol  
+- `fgo/` – Specificații API FGO

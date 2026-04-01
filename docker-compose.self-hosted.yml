@@ -1,0 +1,41 @@
+# docker-compose.self-hosted.yml
+# ─────────────────────────────────────────────────────────
+# Self-hosted: single user, single tenant, zero cloud config.
+# Run:  docker compose -f docker-compose.self-hosted.yml up
+#
+# All services run on this machine. No Redis required by default
+# (BullMQ events still work in-memory if REDIS_HOST is not set).
+# ─────────────────────────────────────────────────────────
+
+services:
+  backend:
+    build: ./backend
+    restart: always
+    ports:
+      - "3001:3001"
+    environment:
+      - OPENSALES_MODE=self-hosted        # ← Key flag: single tenant 'default'
+      - DATABASE_URL=file:/data/opensales.db
+      - JWT_SECRET=${JWT_SECRET:-opensales-change-me-in-prod}
+      - PORT=3001
+      - PLUGIN_ORDER_SYNC_INTERVAL_MS=900000   # 15 minutes
+      - PLUGIN_TIMEOUT_MS=30000
+      # Redis is optional in self-hosted — comment out to disable BullMQ
+      # - REDIS_HOST=redis
+      # - REDIS_PORT=6379
+    volumes:
+      - db-data:/data
+      - ./backend/plugins:/app/plugins   # Mount plugins folder (hot-reload supported)
+
+  frontend:
+    build: ./frontend
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:3001
+    depends_on:
+      - backend
+
+volumes:
+  db-data:
