@@ -1,0 +1,201 @@
+┌─────────────────────────────────────────────────────────────────────────────────────────┐
+│                                    NAVIGATION                                         │
+│  [OpenSales]              Features    Pricing           [Login]  [Începe Gratuit]     │
+├─────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                         │
+│                                     HERO SECTION                                        │
+│                                                                                         │
+│                              Accelerăm vânzările tale.                                  │
+│                                                                                         │
+│            Automatizare completă pentru Marketplace, Logistică și Facturare             │
+│                         într-o singură platformă.                                       │
+│                                                                                         │
+│                    [ ÎNCEPE GRATUIT ]        [ Vezi Demo → ]                            │
+│                                                                                         │
+│              ✓ 14 zile trial gratuit           ✓ Fără card credit                       │
+│                                                                                         │
+├─────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                         │
+│                                     STATS BAR                                           │
+│                                                                                         │
+│                        99.9%                    2,000+                                  │
+│                       Uptime                  Comenzi/min                               │
+│                                                                                         │
+├─────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                         │
+│                                  FEATURES SECTION                                       │
+│                                                                                         │
+│                  Tot ce ai nevoie pentru e-commerce                                     │
+│                       într-o singură platformă                                          │
+│                                                                                         │
+│    ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐             │
+│    │   🛒         │  │   📦         │  │   💰         │  │   📊         │             │
+│    │ Marketplace  │  │    Order     │  │   Pricing    │  │   Analytics  │             │
+│    │    Sync      │  │  Management  │  │ Automation   │  │   & Reports  │             │
+│    │              │  │              │  │              │  │              │             │
+│    │ Sync automat │  │ Dashboard    │  │ Reguli       │  │ Rapoarte     │             │
+│    │ eMAG,        │  │ unificat     │  │ dinamice     │  │ vânzări      │             │
+│    │ Trendyol, FGO│  │ comenzile    │  │ prețuri      │  │ timp real    │             │
+│    └──────────────┘  └──────────────┘  └──────────────┘  └──────────────┘             │
+│                                                                                         │
+├─────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                         │
+│                                   PRICING SECTION                                       │
+│                                                                                         │
+│                       Planuri simple, fără surprize                                     │
+│                                                                                         │
+│   ┌──────────┐   ┌──────────────┐   ┌──────────┐   ┌──────────────────┐               │
+│   │   FREE   │   │  STARTER ⭐  │   │   PRO    │   │   ENTERPRISE     │               │
+│   │          │   │              │   │          │   │                  │               │
+│   │   €0     │   │    €29       │   │   €79    │   │    Custom        │               │
+│   │  /lună   │   │   /lună      │   │  /lună   │   │                  │               │
+│   │          │   │              │   │          │   │                  │               │
+│   │ ✓ 50     │   │ ✓ 500        │   │ ✓ 2000   │   │ ✓ Unlimited      │               │
+│   │ comenzi  │   │ comenzi      │   │ comenzi  │   │ comenzi          │               │
+│   │ ✓ 1 user │   │ ✓ 3 users    │   │ ✓ 10     │   │ ✓ Unlimited      │               │
+│   │          │   │              │   │ users    │   │ users            │               │
+│   │ ✓ Basic  │   │ ✓ Advanced   │   │ ✓ All    │   │ ✓ Everything     │               │
+│   │ sync     │   │ sync         │   │ features │   │ + Priority       │               │
+│   │          │   │              │   │          │   │ support          │               │
+│   │          │   │              │   │          │   │                  │               │
+│   ├──────────┤   ├──────────────┤   ├──────────┤   ├──────────────────┤               │
+│   │ [Start]  │   │ [Try Free]   │   │ [Start]  │   │ [Contact Sales]  │               │
+│   └──────────┘   └──────────────┘   └──────────┘   └──────────────────┘               │
+│                                                                                         │
+├─────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                         │
+│                                     FINAL CTA                                           │
+│                                                                                         │
+│                  Gata să-ți automatizezi vânzările?                                     │
+│                                                                                         │
+│                  Începe acum - 14 zile trial gratuit                                    │
+│                                                                                         │
+│                         [ ÎNCEPE GRATUIT ACUM ]                                         │
+│                                                                                         │
+│              ✓ Fără card credit           ✓ Setup în 5 minute                           │
+│                                                                                         │
+├─────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                         │
+│                                      FOOTER                                             │
+│                                                                                         │
+│   [OpenSales]         Features           Pricing            Company         Legal       │
+│                       Marketplace        Planuri            About           Terms       │
+│                       Orders             Pricing tiers      Contact         Privacy     │
+│                       Pricing                                                         │
+│                       Analytics                                                       │
+│                                                                                         │
+│   Contact: hello@opensales.ro                                                           │
+│   © 2026 OpenSales. Toate drepturile rezervate.                                         │
+│                                                                                         │
+└─────────────────────────────────────────────────────────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════════════════════════════
+
+                              MOBILE WIREFRAME (390px)
+
+═══════════════════════════════════════════════════════════════════════════════════════
+
+┌─────────────────────────────────────┐
+│  ☰        [OpenSales]      Login   │  ← Navigation (56px)
+├─────────────────────────────────────┤
+│                                     │
+│     Accelerăm vânzările tale.       │  ← Hero (80px padding)
+│                                     │
+│  Automatizare completă pentru...    │
+│                                     │
+│  ┌───────────────────────────────┐  │
+│  │     [ ÎNCEPE GRATUIT ]        │  │
+│  └───────────────────────────────┘  │
+│  ┌───────────────────────────────┐  │
+│  │       [ Vezi Demo → ]         │  │
+│  └───────────────────────────────┘  │
+│                                     │
+│  ✓ 14 zile trial  ✓ Fără card       │
+│                                     │
+├─────────────────────────────────────┤
+│   99.9%       │    2,000+           │  ← Stats (32px padding)
+│  Uptime       │  Comenzi/min        │
+├─────────────────────────────────────┤
+│                                     │
+│  Tot ce ai nevoie pentru            │  ← Features (64px padding)
+│  e-commerce                         │
+│                                     │
+│  ┌───────────────────────────────┐  │
+│  │ 🛒  Marketplace Sync           │  │
+│  │     Sync automat eMAG...       │  │
+│  └───────────────────────────────┘  │
+│  ┌───────────────────────────────┐  │
+│  │ 📦  Order Management           │  │
+│  │     Dashboard unificat...      │  │
+│  └───────────────────────────────┘  │
+│  ┌───────────────────────────────┐  │
+│  │ 💰  Pricing Automation         │  │
+│  │     Reguli dinamice...         │  │
+│  └───────────────────────────────┘  │
+│  ┌───────────────────────────────┐  │
+│  │ 📊  Analytics & Reports        │  │
+│  │     Rapoarte vânzări...        │  │
+│  └───────────────────────────────┘  │
+├─────────────────────────────────────┤
+│                                     │
+│  Planuri simple, fără surprize      │  ← Pricing (64px padding)
+│                                     │
+│  ┌───────────────────────────────┐  │
+│  │ FREE          €0/lună         │  │
+│  │ • 50 comenzi                  │  │
+│  │ • 1 user                      │  │
+│  │ • Basic sync                  │  │
+│  │ [Start]                       │  │
+│  └───────────────────────────────┘  │
+│  ┌───────────────────────────────┐  │
+│  │ STARTER €29/lună ⭐           │  │
+│  │ • 500 comenzi                 │  │
+│  │ • 3 users                     │  │
+│  │ • Advanced sync               │  │
+│  │ [Try Free]                    │  │
+│  └───────────────────────────────┘  │
+│  ┌───────────────────────────────┐  │
+│  │ PRO           €79/lună        │  │
+│  │ • 2000 comenzi                │  │
+│  │ • 10 users                    │  │
+│  │ • All features                │  │
+│  │ [Start]                       │  │
+│  └───────────────────────────────┘  │
+│  ┌───────────────────────────────┐  │
+│  │ ENTERPRISE    Custom          │  │
+│  │ • Unlimited                   │  │
+│  │ • Priority support            │  │
+│  │ [Contact Sales]               │  │
+│  └───────────────────────────────┘  │
+├─────────────────────────────────────┤
+│                                     │
+│  Gata să-ți automatizezi            │  ← CTA (64px padding)
+│  vânzările?                         │
+│                                     │
+│  14 zile trial gratuit              │
+│                                     │
+│  ┌───────────────────────────────┐  │
+│  │ [ ÎNCEPE GRATUIT ACUM ]       │  │
+│  └───────────────────────────────┘  │
+│                                     │
+│  ✓ Fără card credit                 │
+│                                     │
+├─────────────────────────────────────┤
+│  [OpenSales]                        │  ← Footer (48px padding)
+│                                     │
+│  Features                           │
+│  Pricing                            │
+│  About                              │
+│  Contact                            │
+│  Terms & Privacy                    │
+│                                     │
+│  hello@opensales.ro                 │
+│  © 2026 OpenSales                   │
+└─────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════════════════════════════
+
+Design by Andrei (UX Designer) - 2026-04-01
+For detailed specs, see COMPONENT-SPECS.md and DESIGN-SYSTEM.md
+
+═══════════════════════════════════════════════════════════════════════════════════════
