@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { AlertCircle, Loader2, Mail, RefreshCw, CheckCircle2 } from 'lucide-react';
+import { trackEmailVerified } from '@/lib/analytics';
 
 const API = process.env.NEXT_PUBLIC_API_URL || '';
 
@@ -71,6 +72,8 @@ export default function VerifyPage() {
             });
 
             if (res.ok) {
+                // Track email_verified
+                trackEmailVerified();
                 setSuccess(true);
                 setTimeout(() => {
                     router.push('/dashboard');

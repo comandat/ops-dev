@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Mail, Lock, AlertCircle, Loader2, ArrowRight, CheckSquare, Square } from 'lucide-react';
+import { trackFirstLogin } from '@/lib/analytics';
 
 const API = process.env.NEXT_PUBLIC_API_URL || '';
 
@@ -38,6 +39,13 @@ export default function LoginPage() {
             });
 
             if (res.ok) {
+                // Check if this is first login
+                const hasLoggedInBefore = localStorage.getItem('hasLoggedIn');
+                if (!hasLoggedInBefore) {
+                    trackFirstLogin();
+                    localStorage.setItem('hasLoggedIn', 'true');
+                }
+                
                 // Save email to localStorage if remember me is checked
                 if (rememberMe) {
                     localStorage.setItem('lastLoginEmail', email);

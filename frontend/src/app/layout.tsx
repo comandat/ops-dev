@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import PlausibleProvider from 'next-plausible';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -16,6 +17,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ro">
+      <head>
+        <PlausibleProvider domain={process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN || 'opensales.ro'} />
+      </head>
       <body className={`${inter.className} overflow-x-hidden`}>
         {children}
       </body>

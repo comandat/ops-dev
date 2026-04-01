@@ -1,10 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { User, Mail, Lock, AlertCircle, Loader2, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { EasySalesMigrationModal } from '../../components/EasySalesMigrationModal';
+import { trackRegisterStarted, trackRegisterCompleted } from '@/lib/analytics';
 
 const API = process.env.NEXT_PUBLIC_API_URL || '';
 
@@ -16,6 +17,11 @@ export default function RegisterPage() {
     const [loading, setLoading] = useState(false);
     const [showMigrationModal, setShowMigrationModal] = useState(false);
     const router = useRouter();
+
+    // Track register_started when page loads
+    useEffect(() => {
+        trackRegisterStarted();
+    }, []);
 
     const sendVerificationCode = async (userEmail: string) => {
         try {
@@ -43,6 +49,8 @@ export default function RegisterPage() {
             });
 
             if (res.ok) {
+                // Track register_completed
+                trackRegisterCompleted();
                 // Trimite email de verificare
                 await sendVerificationCode(email);
                 // Redirect la verify page

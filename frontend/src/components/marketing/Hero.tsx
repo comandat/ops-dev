@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { trackCtaClick } from '@/lib/analytics';
 
 export default function Hero() {
   return (
@@ -28,12 +29,14 @@ export default function Hero() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
             <Link
               href="/register"
+              onClick={() => trackCtaClick('primary', 'hero')}
               className="inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-white bg-gradient-to-r from-indigo-500 to-violet-500 rounded-lg hover:from-indigo-600 hover:to-violet-600 transition-all duration-200 shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40"
             >
               Începe Gratuit
             </Link>
             <Link
               href="#features"
+              onClick={() => trackCtaClick('secondary', 'hero')}
               className="inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-white border border-[rgba(255,255,255,0.2)] rounded-lg hover:bg-white/5 transition-all duration-200"
             >
               Vezi Demo

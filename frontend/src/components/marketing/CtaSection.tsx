@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
+import { trackCtaClick } from '@/lib/analytics';
 
 export default function CtaSection() {
   return (
@@ -26,6 +27,7 @@ export default function CtaSection() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/register"
+                onClick={() => trackCtaClick('primary', 'footer')}
                 className="inline-flex items-center justify-center px-8 py-4 rounded-xl bg-white text-blue-600 font-bold text-sm uppercase tracking-wider hover:bg-blue-50 transition-all duration-200 shadow-lg hover:shadow-xl"
               >
                 Începe Acum
@@ -33,6 +35,7 @@ export default function CtaSection() {
               </Link>
               <Link
                 href="/login"
+                onClick={() => trackCtaClick('secondary', 'footer')}
                 className="inline-flex items-center justify-center px-8 py-4 rounded-xl bg-blue-700/50 text-white font-bold text-sm uppercase tracking-wider hover:bg-blue-700 transition-all duration-200 border border-white/20"
               >
                 Loghează-te

@@ -461,8 +461,9 @@ Marketplace involved, sync job details, etc.
 ### #3 - Homepage Analytics & Conversion Tracking
 
 **Data**: 2026-04-01 16:45 UTC  
-**Status**: 🟢 Proposed (ready for Alex)  
-**Inițiat de**: Bogdan (Improvement Check #3)
+**Status**: ✅ **COMPLETED** (2026-04-01 17:XX UTC)  
+**Inițiat de**: Bogdan (Improvement Check #3)  
+**Implementat de**: Alex (Growth)
 
 #### 🎯 Problema
 
@@ -610,11 +611,39 @@ export function trackEvent(eventName: string, props?: Record<string, any>) {
 
 | Total Proposals | Implemented | In Progress | In Debate | Rejected |
 |-----------------|-------------|-------------|-----------|----------|
-| 3 | 0 | 1 | 1 | 0 |
+| 3 | 1 | 1 | 1 | 0 |
 
 ---
 
-## 🔄 Current Status (2026-04-01 16:45 UTC)
+## 🔄 Current Status (2026-04-01 17:XX UTC)
+
+### Improvement #3 - Homepage Analytics & Conversion Tracking
+**Status**: ✅ **COMPLETED**
+
+**Deliverables**:
+- ✅ Plausible installed (`next-plausible` package)
+- ✅ PlausibleProvider added to `/frontend/src/app/layout.tsx`
+- ✅ Analytics helper created: `/frontend/src/lib/analytics.ts`
+- ✅ CTA tracking implemented (Hero + CtaSection components)
+- ✅ Register flow tracking (`register_started`, `register_completed`)
+- ✅ Email verification tracking (`email_verified`)
+- ✅ First login tracking (`first_login`)
+- ✅ Documentation: `/docs/ANALYTICS-GUIDE.md`
+- ✅ Dashboard template: `/docs/ANALYTICS-DASHBOARD.md`
+
+**Pending**:
+- ⏳ Set Railway env var: `NEXT_PUBLIC_PLAUSIBLE_DOMAIN=opensales.ro`
+- ⏳ Create Plausible account & add domain
+- ⏳ Create Google Sheets / Notion dashboard (template ready)
+
+**Next Steps**:
+1. Bogdan: Setup Plausible account (free trial)
+2. Bogdan: Add domain & get tracking confirmed
+3. Bogdan: Set Railway env var
+4. Alex: Verify events firing in DevTools
+5. Weekly: Monday 10 AM analytics review
+
+---
 
 ### Improvement #2 - Remember Last Login + Email Verification
 **Status**: 🟡 **IN PROGRESS** (Radu implementation)

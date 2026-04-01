@@ -18,7 +18,12 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ../qa-suite/backend/jest-e2e.json --detectOpenHandles --forceExit",
-    "test:e2e:watch": "jest --config ../qa-suite/backend/jest-e2e.json --watch"
+    "test:e2e:watch": "jest --config ../qa-suite/backend/jest-e2e.json --watch",
+    "test:security": "jest --config ../qa-suite/backend/jest-e2e.json --testPathPattern=integration/security --detectOpenHandles --forceExit",
+    "test:security:tenant": "jest --config ../qa-suite/backend/jest-e2e.json --testPathPattern=tenant-isolation --detectOpenHandles --forceExit",
+    "test:security:auth": "jest --config ../qa-suite/backend/jest-e2e.json --testPathPattern=auth-security --detectOpenHandles --forceExit",
+    "test:security:hardening": "jest --config ../qa-suite/backend/jest-e2e.json --testPathPattern=security-hardening --detectOpenHandles --forceExit",
+    "test:security:audit": "jest --config ../qa-suite/backend/jest-e2e.json --testPathPattern=audit-logging --detectOpenHandles --forceExit"
   },
   "dependencies": {
     "@lucia-auth/adapter-prisma": "^4.0.1",
