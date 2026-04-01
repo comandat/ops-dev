@@ -1,4 +1,4 @@
-import { Controller, Post, Body, HttpCode, HttpStatus, BadRequestException, TooManyRequestsException } from '@nestjs/common';
+import { Controller, Post, Body, HttpCode, HttpStatus, BadRequestException, HttpException } from '@nestjs/common';
 import { VerificationService } from './verification.service';
 import { PrismaService } from '../prisma/prisma.service';
 
@@ -159,7 +159,7 @@ export class VerificationController {
         );
 
         if (recentCodes.length >= 3) {
-            throw new TooManyRequestsException('Maximum 3 resend attempts allowed per hour');
+            throw new HttpException('Maximum 3 resend attempts allowed per hour', HttpStatus.TOO_MANY_REQUESTS);
         }
 
         // Send new verification code

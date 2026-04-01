@@ -16,6 +16,7 @@ export interface ValidatedUser {
     email: string;
     name: string | null;
     role: string;
+    isVerified: boolean;
     createdAt: Date;
     updatedAt: Date;
 }
