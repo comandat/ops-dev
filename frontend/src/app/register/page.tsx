@@ -17,6 +17,18 @@ export default function RegisterPage() {
     const [showMigrationModal, setShowMigrationModal] = useState(false);
     const router = useRouter();
 
+    const sendVerificationCode = async (userEmail: string) => {
+        try {
+            await fetch(`${API}/api/auth/send-verification-code`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: userEmail }),
+            });
+        } catch (err) {
+            console.error('Failed to send verification code:', err);
+        }
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
@@ -31,7 +43,10 @@ export default function RegisterPage() {
             });
 
             if (res.ok) {
-                setShowMigrationModal(true);
+                // Trimite email de verificare
+                await sendVerificationCode(email);
+                // Redirect la verify page
+                router.push(`/verify?email=${encodeURIComponent(email)}`);
             } else {
                 const data = await res.json();
                 setError(data.message || 'Eroare la înregistrare');
