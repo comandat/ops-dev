@@ -1,9 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { Mail, Lock, AlertCircle, Loader2, ArrowRight } from 'lucide-react';
+import { Mail, Lock, AlertCircle, Loader2, ArrowRight, CheckSquare, Square } from 'lucide-react';
 
 const API = process.env.NEXT_PUBLIC_API_URL || '';
 
@@ -12,7 +12,17 @@ export default function LoginPage() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+    const [rememberMe, setRememberMe] = useState(true);
     const router = useRouter();
+
+    // Load last login email from localStorage on mount
+    useEffect(() => {
+        const lastEmail = localStorage.getItem('lastLoginEmail');
+        if (lastEmail) {
+            setEmail(lastEmail);
+            setRememberMe(true);
+        }
+    }, []);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -28,6 +38,12 @@ export default function LoginPage() {
             });
 
             if (res.ok) {
+                // Save email to localStorage if remember me is checked
+                if (rememberMe) {
+                    localStorage.setItem('lastLoginEmail', email);
+                } else {
+                    localStorage.removeItem('lastLoginEmail');
+                }
                 router.push('/');
                 router.refresh();
             } else {
@@ -131,6 +147,21 @@ export default function LoginPage() {
                                     required
                                 />
                             </div>
+                        </div>
+
+                        <div className="flex items-center">
+                            <button
+                                type="button"
+                                onClick={() => setRememberMe(!rememberMe)}
+                                className="flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-slate-800 transition-colors"
+                            >
+                                {rememberMe ? (
+                                    <CheckSquare size={18} className="text-blue-600" />
+                                ) : (
+                                    <Square size={18} className="text-slate-400" />
+                                )}
+                                <span>Ține-mă minte data viitoare</span>
+                            </button>
                         </div>
 
                         <button
