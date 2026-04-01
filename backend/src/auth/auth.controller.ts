@@ -1,12 +1,16 @@
 import { Controller, Post, Body, HttpCode, HttpStatus, Res, UnauthorizedException, Get, Req } from '@nestjs/common';
 import { AuthService } from './auth.service';
+import { VerificationService } from './verification.service';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
 import type { Response, Request } from 'express';
 
 @Controller('auth')
 export class AuthController {
-    constructor(private readonly authService: AuthService) { }
+    constructor(
+        private readonly authService: AuthService,
+        private readonly verificationService: VerificationService
+    ) { }
 
     @Post('login')
     @HttpCode(HttpStatus.OK)
@@ -17,6 +21,11 @@ export class AuthController {
         const user = await this.authService.validateUser(body.email, body.password);
         if (!user) {
             throw new UnauthorizedException('Invalid credentials');
+        }
+
+        if (!user.isVerified) {
+            await this.verificationService.sendVerificationCodeToUser(user.id, user.email);
+            throw new UnauthorizedException('Cont nevalidat. Verifică email-ul.');
         }
 
         const { cookie } = await this.authService.createSession(user.id);
